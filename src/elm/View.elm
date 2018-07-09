@@ -4,6 +4,7 @@ import Bulma.CDN exposing (stylesheet)
 import Bulma.Elements exposing (..)
 import Bulma.Layout exposing (..)
 import Html exposing (Html, div, h3, main_, text)
+import Html.Attributes exposing (href, rel)
 
 import Message exposing (Msg(..))
 import Model exposing (Model)
@@ -19,6 +20,7 @@ view model =
   in
     main_ [] [
       stylesheet,
+      fontAwesomeCDN,
       section NotSpaced [] [
         container [] [ title H1 [] [ text "Ardent Technicreative" ] ]
       ],
@@ -28,6 +30,12 @@ view model =
 
 
 -- PRIVATE
+
+
+fontAwesomeCDN : Html Msg
+fontAwesomeCDN =
+  Html.node "link" [
+    rel "stylesheet", href "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" ] []
 
 
 forRoute : Maybe Route -> (Model -> Html Msg)
