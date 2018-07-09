@@ -6,6 +6,7 @@ import Html.Attributes exposing (class)
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Router exposing (Route(..))
+import View.Product exposing (productListView)
 
 
 view : Model -> Html Msg
@@ -27,7 +28,11 @@ forRoute route =
 
 
 indexView : Model -> Html Msg
-indexView model = div [] [ h3 [] [ text "Index" ] ]
+indexView model =
+  div [] [
+    h3 [] [ text "Ardent" ],
+    productListView model
+  ]
 
 
 notFoundView : Model -> Html Msg

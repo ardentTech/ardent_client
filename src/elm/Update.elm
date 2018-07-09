@@ -4,9 +4,8 @@ import Navigation exposing (newUrl)
 import UrlParser exposing (parsePath)
 
 import Alert
-import Child.Update
 import Command
-import Message exposing (Msg(..), childTranslator)
+import Message exposing (Msg(..))
 import Model exposing (Model) 
 import Router exposing (route)
 
@@ -18,12 +17,10 @@ update msg model =
   in
     case msg of
       AlertMsg message -> { model | alert = Alert.update message model.alert } ! []
-      ChildMsg message ->
-        let
-          ( model_, cmd_ ) = Child.Update.update message model.child
-        in
-          { model | child = model_ } ! [ Cmd.map childTranslator cmd_ ]
       CurrentTime time -> { model | currentTime = Just time } ! []
+      GetProductList response -> case response of
+        Ok r -> { model | productList = r } ! []
+        Err e -> { model | alert = Alert.fromError e } ! []
       NewUrl url -> ( model, newUrl url )
       NoOp -> noOp
       UrlChange location -> (

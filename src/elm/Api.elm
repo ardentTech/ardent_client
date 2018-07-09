@@ -1,10 +1,10 @@
-module Api exposing (pathForEndpoint)
+module Api exposing (Endpoint(..), pathForEndpoint)
 
 
-type Endpoint = Todo
+type Endpoint = Graph
 
 
 pathForEndpoint : Endpoint -> String
 pathForEndpoint endpoint =
   case endpoint of
-    Todo -> "todo"
+    Graph -> "graph"
