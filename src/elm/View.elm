@@ -1,11 +1,14 @@
 module View exposing (view)
 
-import Html exposing (Html, div, h3, text)
-import Html.Attributes exposing (class)
+import Bulma.CDN exposing (stylesheet)
+import Bulma.Elements exposing (..)
+import Bulma.Layout exposing (..)
+import Html exposing (Html, div, h3, main_, text)
 
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Router exposing (Route(..))
+import View.Footer
 import View.Product exposing (productListView)
 
 
@@ -14,7 +17,14 @@ view model =
   let
     childView = forRoute model.currentRoute <| model
   in
-    div [ class "container" ] [ childView ]
+    main_ [] [
+      stylesheet,
+      section NotSpaced [] [
+        container [] [ title H1 [] [ text "Ardent Technicreative" ] ]
+      ],
+      section NotSpaced [] [ container [] [ childView ]],
+      section NotSpaced [] [ View.Footer.view model ]
+    ]
 
 
 -- PRIVATE
@@ -29,11 +39,8 @@ forRoute route =
 
 indexView : Model -> Html Msg
 indexView model =
-  div [] [
-    h3 [] [ text "Ardent" ],
-    productListView model
-  ]
+  productListView model
 
 
 notFoundView : Model -> Html Msg
-notFoundView model = div [] [ h3 [] [ text "404" ] ]
+notFoundView model = title H1 [] [ text "404" ]
