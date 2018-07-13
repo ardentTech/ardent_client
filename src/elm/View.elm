@@ -22,7 +22,8 @@ view model =
       stylesheet,
       fontAwesomeCDN,
       section NotSpaced [] [
-        container [] [ title H1 [] [ text "Ardent Technicreative" ] ]
+        container [] [ 
+          title H2 [] [ text "Ardent Technicreative" ] ]
       ],
       section NotSpaced [] [ container [] [ childView ]],
       section NotSpaced [] [ View.Footer.view model ]
