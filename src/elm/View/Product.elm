@@ -3,7 +3,7 @@ module View.Product exposing (productListView)
 import Bulma.Columns exposing (..)
 import Bulma.Elements exposing (ImageShape(..), ImageSize(..), image)
 import Bulma.Modifiers exposing (Width(..))
-import Html exposing (Html, a, div, h3, img, text)
+import Html exposing (Html, a, div, h3, img, p, small, strong, text)
 import Html.Attributes exposing (href, src)
 
 import Message exposing (Msg(..))
@@ -23,17 +23,21 @@ productListView model =
 productItemView : String -> Product -> Html Msg
 productItemView docRoot product =
   let
-    mediaUrl = docRoot ++ "media/"
     image_ = case List.head product.images of
-        Just i -> case product.etsyUrl of
-          Just url -> image ( OneByOne Unbounded ) [] [
-            a [ href url ] [ img [ src <| mediaUrl ++ i.image ] []]]
-          _ ->
-            img [ src <| mediaUrl ++ i.image ] []
-        _ -> img [ src "@todo default img" ] []
+      Just i ->
+        image ( OneByOne Unbounded ) [] [
+          img [ src <| docRoot ++ "media/" ++ i.image ] []]
+      _ -> text ""
+    forSaleOrSold = case product.etsyUrl of
+      Just url -> a [ href url ] [ text "Purchase" ]
+      _ -> text "Sold"
 
   in
-    column ( ardColumnModifiers Auto ( Just Width4 )) [] [ image_ ]
+    column ( ardColumnModifiers Auto ( Just Width4 )) [] [
+      image_,
+      p [] [ strong [] [ text product.serialNumber ]],
+      p [] [ forSaleOrSold ]
+    ]
 
 
 ardColumnModifiers : Width -> Maybe Width -> ColumnModifiers
