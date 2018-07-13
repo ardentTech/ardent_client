@@ -3,7 +3,8 @@ module View.Product exposing (productListView)
 import Bulma.Columns exposing (..)
 import Bulma.Elements exposing (ImageShape(..), ImageSize(..), image)
 import Bulma.Modifiers exposing (Width(..))
-import Html exposing (Html, a, div, h3, img, p, small, strong, text)
+import Bulma.Modifiers.Typography exposing (Color(GreyLight), Size(Medium), textColor, textSize)
+import Html exposing (Html, a, div, h3, img, p, small, span, strong, text)
 import Html.Attributes exposing (href, src)
 
 import Message exposing (Msg(..))
@@ -30,12 +31,12 @@ productItemView docRoot product =
       _ -> text ""
     status = case product.etsyUrl of
       Just url -> a [ href url ] [ text "Purchase" ]
-      _ -> text "Currently Unavailable"
+      _ -> span [ textColor GreyLight ] [ text "Currently Unavailable" ]
 
   in
     column ( ardColumnModifiers Auto ( Just Width4 )) [] [
       image_,
-      p [] [ strong [] [ text product.serialNumber ]],
+      p [] [ strong [ textSize Medium ] [ text product.serialNumber ]],
       p [] [ status ]
     ]
 
