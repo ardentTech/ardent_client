@@ -21,11 +21,9 @@ view model =
     main_ [] [
       stylesheet,
       fontAwesomeCDN,
-      section NotSpaced [] [
-        container [] [ 
-          title H2 [] [ text "Ardent Technicreative" ] ]
-      ],
-      section NotSpaced [] [ container [] [ childView ]],
+      section NotSpaced [] [ container [] [
+        title H2 [] [ text "Ardent Technicreative" ],
+        childView ]],
       section NotSpaced [] [ View.Footer.view model ]
     ]
 

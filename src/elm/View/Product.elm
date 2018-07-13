@@ -28,15 +28,15 @@ productItemView docRoot product =
         image ( OneByOne Unbounded ) [] [
           img [ src <| docRoot ++ "media/" ++ i.image ] []]
       _ -> text ""
-    forSaleOrSold = case product.etsyUrl of
+    status = case product.etsyUrl of
       Just url -> a [ href url ] [ text "Purchase" ]
-      _ -> text "Sold"
+      _ -> text "Currently Unavailable"
 
   in
     column ( ardColumnModifiers Auto ( Just Width4 )) [] [
       image_,
       p [] [ strong [] [ text product.serialNumber ]],
-      p [] [ forSaleOrSold ]
+      p [] [ status ]
     ]
 
 
