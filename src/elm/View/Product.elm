@@ -30,8 +30,8 @@ productItemView docRoot product =
           img [ src <| docRoot ++ "media/" ++ i.image ] []]
       _ -> text ""
     status = case product.etsyUrl of
-      Just url -> a [ href url ] [ text "Purchase" ]
-      _ -> span [ textColor GreyLight ] [ text "Currently Unavailable" ]
+      Just url -> a [ href url ] [ text "Purchase Now" ]
+      _ -> span [ textColor GreyLight ] [ text "Coming Soon" ]
 
   in
     column ( ardColumnModifiers Auto ( Just Width4 )) [] [
