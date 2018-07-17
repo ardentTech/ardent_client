@@ -36,7 +36,7 @@ productItemView docRoot product =
   in
     column ( ardColumnModifiers Auto ( Just Width4 )) [] [
       image_,
-      p [] [ strong [ textSize Medium ] [ text product.serialNumber ]],
+      p [] [ strong [ textSize Medium ] [ text <| "#" ++ product.serialNumber ]],
       p [] [ status ]
     ]
 
