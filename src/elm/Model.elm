@@ -6,6 +6,7 @@ import UrlParser exposing (parsePath)
 
 import Alert exposing (Alert)
 import Flag exposing (Flags)
+import Model.Post exposing (Post)
 import Model.Product exposing (Product)
 import Router exposing (Route, route)
 
@@ -15,6 +16,7 @@ type alias Model = {
   currentRoute : Maybe Route,
   currentTime : Maybe Time.Time,
   docRoot : String,
+  postList : List Post,
   productList : List Product
 }
 
@@ -25,4 +27,5 @@ init flags location = {
   currentRoute = parsePath route location,
   currentTime = Nothing,
   docRoot = flags.docRoot,
+  postList = [],
   productList = []}

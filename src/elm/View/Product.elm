@@ -4,7 +4,7 @@ import Bulma.Columns exposing (..)
 import Bulma.Elements exposing (ImageShape(..), ImageSize(..), image)
 import Bulma.Modifiers exposing (Width(..))
 import Bulma.Modifiers.Typography exposing (Color(GreyLight), Size(Medium), textColor, textSize)
-import Html exposing (Html, a, div, h3, img, p, small, span, strong, text)
+import Html exposing (Html, a, div, img, p, span, strong, text)
 import Html.Attributes exposing (href, src)
 
 import Message exposing (Msg(..))
@@ -14,8 +14,10 @@ import Model.Product exposing (Product)
 
 productListView : Model -> Html Msg
 productListView model =
-  columns { columnsModifiers | multiline = True } [] <|
-    List.map (\p ->  productItemView model.docRoot p ) model.productList
+  case List.length model.productList of
+    0 ->  div [] [ text "No products to display :(" ]
+    _ -> columns { columnsModifiers | multiline = True } [] <|
+      List.map (\p ->  productItemView model.docRoot p ) model.productList
 
 
 -- PRIVATE

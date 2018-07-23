@@ -3,6 +3,7 @@ module Command exposing (forMsg, init)
 import Task
 import Time
 
+import Command.Post exposing (getPostList)
 import Command.Product exposing (getProductList)
 import Message exposing (Msg(..))
 import Model exposing (Model)
@@ -22,4 +23,5 @@ getCurrentTime = Task.perform CurrentTime Time.now
 init : Model -> Cmd Msg
 init model = Cmd.batch [
   getCurrentTime,
+  getPostList model,
   getProductList model ]

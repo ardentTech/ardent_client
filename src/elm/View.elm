@@ -10,22 +10,20 @@ import Message exposing (Msg(..))
 import Model exposing (Model)
 import Router exposing (Route(..))
 import View.Footer
+import View.Post exposing (postListView)
 import View.Product exposing (productListView)
 
 
 view : Model -> Html Msg
 view model =
-  let
-    childView = forRoute model.currentRoute <| model
-  in
-    main_ [] [
-      stylesheet,
-      fontAwesomeCDN,
-      section NotSpaced [] [ container [] [
-        title H2 [] [ text "Ardent Technicreative" ],
-        childView ]],
-      section NotSpaced [] [ View.Footer.view model ]
-    ]
+  main_ [] [
+    stylesheet,
+    fontAwesomeCDN,
+    section NotSpaced [] [ container [] [
+      title H2 [] [ text "Ardent Technicreative" ],
+      forRoute model.currentRoute <| model ]],
+    section NotSpaced [] [ View.Footer.view model ]
+  ]
 
 
 -- PRIVATE
@@ -46,7 +44,10 @@ forRoute route =
 
 indexView : Model -> Html Msg
 indexView model =
-  productListView model
+  div [] [
+    productListView model,
+    postListView model
+  ]
 
 
 notFoundView : Model -> Html Msg

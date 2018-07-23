@@ -18,6 +18,9 @@ update msg model =
     case msg of
       AlertMsg message -> { model | alert = Alert.update message model.alert } ! []
       CurrentTime time -> { model | currentTime = Just time } ! []
+      GetPostList response -> case response of
+        Ok r -> { model | postList = r } ! []
+        Err e -> { model | alert = Alert.fromError e } ! []
       GetProductList response -> case response of
         Ok r -> { model | productList = r } ! []
         Err e -> { model | alert = Alert.fromError e } ! []
