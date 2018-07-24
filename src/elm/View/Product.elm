@@ -32,7 +32,7 @@ productItemView docRoot product =
           img [ src <| docRoot ++ "media/" ++ i.image ] []]
       _ -> text ""
     status = case product.etsyUrl of
-      Just url -> a [ href url ] [ text "Purchase Now" ]
+      Just url -> a [ href url ] [ text "For Sale" ]
       _ -> span [ textColor GreyLight ] [ text "Coming Soon" ]
 
   in

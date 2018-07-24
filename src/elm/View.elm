@@ -45,8 +45,8 @@ forRoute route =
 indexView : Model -> Html Msg
 indexView model =
   div [] [
-    productListView model,
-    postListView model
+    productListView model
+--    postListView model
   ]
 
 
