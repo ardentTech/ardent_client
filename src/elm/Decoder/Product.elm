@@ -11,6 +11,7 @@ productListDecoder =
   Json.Decode.at [ "data", "products" ] <| list ( decode Product
     |> required "etsyUrl" ( nullable string )
     |> requiredAt ["images"] productImageListDecoder
+    |> required "name" string
     |> required "serialNumber" string
   )
 
