@@ -12,7 +12,7 @@ import Rest exposing (getList)
 getPostList : Model -> Cmd Msg
 getPostList { docRoot } =
   let
-    query = "{posts{body,title}}"
+    query = "{posts{body,created,title}}"
     url = ( docRoot ++ ( pathForEndpoint Graph ) ++ "?query=" ++ ( encodeUri query ))
   in
     getList url postListDecoder GetPostList
