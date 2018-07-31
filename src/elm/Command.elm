@@ -23,5 +23,5 @@ getCurrentTime = Task.perform CurrentTime Time.now
 init : Model -> Cmd Msg
 init model = Cmd.batch [
   getCurrentTime,
---  getPostList model,
+  getPostList model,
   getProductList model ]

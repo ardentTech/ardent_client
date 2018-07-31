@@ -1,7 +1,7 @@
 module View.Product exposing (productListView)
 
 import Bulma.Columns exposing (..)
-import Bulma.Elements exposing (ImageShape(..), ImageSize(..), image)
+import Bulma.Elements exposing (..)
 import Bulma.Modifiers exposing (Width(..))
 import Bulma.Modifiers.Typography exposing (Color(GreyLight), Size(Medium), textColor, textSize)
 import Html exposing (Html, a, div, img, p, span, strong, text)
@@ -10,6 +10,7 @@ import Html.Attributes exposing (href, src)
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Model.Product exposing (Product)
+import View.Utils exposing (ardColumnModifiers)
 
 
 productListView : Model -> Html Msg
@@ -38,15 +39,6 @@ productItemView docRoot product =
   in
     column ( ardColumnModifiers Auto ( Just Width4 )) [] [
       image_,
-      p [] [ strong [ textSize Medium ] [ text <| product.name ]],
+      title H6 [] [ text product.name ],
       p [] [ status ]
     ]
-
-
-ardColumnModifiers : Width -> Maybe Width -> ColumnModifiers
-ardColumnModifiers offset width =
-  let
-    widths = columnModifiers.widths
-  in
-    { columnModifiers | offset = offset, widths =
-      { widths | tablet = width, desktop = width, widescreen = width, fullHD = width }}

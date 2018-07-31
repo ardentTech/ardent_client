@@ -19,6 +19,7 @@ view model =
   main_ [] [
     stylesheet,
     fontAwesomeCDN,
+    ardStylesheet,
     section NotSpaced [] [ container [] [
       title H2 [] [ text "Ardent Technicreative" ],
       forRoute model.currentRoute <| model ]],
@@ -27,6 +28,12 @@ view model =
 
 
 -- PRIVATE
+
+
+ardStylesheet : Html Msg
+ardStylesheet =
+  Html.node "link" [
+    rel "stylesheet", href "/static/styles/main.css" ] []
 
 
 fontAwesomeCDN : Html Msg
@@ -45,8 +52,8 @@ forRoute route =
 indexView : Model -> Html Msg
 indexView model =
   div [] [
-    productListView model
---    postListView model
+    productListView model,
+    postListView model
   ]
 
 
