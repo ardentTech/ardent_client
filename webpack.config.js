@@ -116,6 +116,9 @@ if (isProd === true) {
                 from: 'src/static/img/',
                 to: 'static/img/'
             }, {
+                from: 'src/static/styles/',
+                to: 'static/styles/'
+            }, {
                 from: '.htaccess'
             }, {
                 from: 'src/favicon.ico'

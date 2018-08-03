@@ -15,9 +15,12 @@ import View.Utils exposing (ardColumnModifiers)
 
 postListView : Model -> Html Msg
 postListView model =
-  case List.length model.postList of
-    0 ->  div [] [ text "No posts to display :(" ]
-    _ -> div [] <| List.map postItemView model.postList
+  div [] [
+    title H4 [] [ text "Musings & Such" ],
+    case List.length model.postList of
+      0 ->  div [] [ text "No posts to display :(" ]
+      _ -> div [] <| List.map postItemView model.postList
+  ]
 
 
 -- PRIVATE

@@ -13,6 +13,7 @@ import Model exposing (Model)
 contactFormView : Model -> Html Msg
 contactFormView model =
   div [] [
+    title H4 [] [ text "Speak Your Mind" ],
     field [] [
       controlInput controlInputModifiers [] [ placeholder "Name" ] []
     ],
