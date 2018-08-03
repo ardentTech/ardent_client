@@ -26,8 +26,9 @@ view model =
     ardStylesheet,
     section NotSpaced [] [ container [] [
       title H2 [] [ text "Ardent Technicreative" ],
-      forRoute model.currentRoute <| model ]],
-    section NotSpaced [] [ View.Footer.view model ]
+      forRoute model.currentRoute <| model,
+      View.Footer.view model
+    ]]
   ]
 
 

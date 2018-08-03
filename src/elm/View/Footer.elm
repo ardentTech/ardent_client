@@ -5,7 +5,7 @@ import Bulma.Layout exposing (..)
 import Bulma.Modifiers exposing (..)
 import Bulma.Modifiers.Typography exposing (Color(GreyLight), textCentered, textColor)
 import Date
-import Html exposing (Html, p, text)
+import Html exposing (Html, hr, p, text)
 
 import Message exposing (Msg)
 import Model exposing (Model)
@@ -19,9 +19,8 @@ view model =
       _ -> ""
   in
     Html.footer [] [
-      container [] [
-        content Standard [ textCentered ] [
-          p [ textColor GreyLight ] [ Html.small [] [ text <| "© " ++ year ++ "Ardent Technicreative" ]]
-        ]
+      hr [] [],
+      content Standard [ textCentered ] [
+        p [ textColor GreyLight ] [ Html.small [] [ text <| "© " ++ year ++ "Ardent Technicreative" ]]
       ]
     ]
