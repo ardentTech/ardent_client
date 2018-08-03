@@ -1,17 +1,21 @@
 module View exposing (view)
 
 import Bulma.CDN exposing (stylesheet)
+import Bulma.Columns exposing (..)
 import Bulma.Elements exposing (..)
 import Bulma.Layout exposing (..)
+import Bulma.Modifiers exposing (Width(..))
 import Html exposing (Html, div, h3, main_, text)
 import Html.Attributes exposing (href, rel)
 
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Router exposing (Route(..))
+import View.ContactForm exposing (contactFormView)
 import View.Footer
 import View.Post exposing (postListView)
 import View.Product exposing (productListView)
+import View.Utils exposing (ardColumnModifiers)
 
 
 view : Model -> Html Msg
@@ -32,14 +36,14 @@ view model =
 
 ardStylesheet : Html Msg
 ardStylesheet =
-  Html.node "link" [
-    rel "stylesheet", href "/static/styles/main.css" ] []
+  Html.node "link" [ rel "stylesheet", href "/static/styles/main.css" ] []
 
 
 fontAwesomeCDN : Html Msg
 fontAwesomeCDN =
   Html.node "link" [
-    rel "stylesheet", href "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" ] []
+    rel "stylesheet",
+    href "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" ] []
 
 
 forRoute : Maybe Route -> (Model -> Html Msg)
@@ -52,8 +56,11 @@ forRoute route =
 indexView : Model -> Html Msg
 indexView model =
   div [] [
-    productListView model,
-    postListView model
+    columns { columnsModifiers | multiline = True } [] [ productListView model ],
+    columns columnsModifiers [] [
+      column ( ardColumnModifiers Auto ( Just Width6 )) [] [ postListView model ],
+      column ( ardColumnModifiers Auto ( Just Width6 )) [] [ contactFormView model ]
+    ]
   ]
 
 

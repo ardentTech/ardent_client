@@ -17,8 +17,7 @@ postListView : Model -> Html Msg
 postListView model =
   case List.length model.postList of
     0 ->  div [] [ text "No posts to display :(" ]
-    _ -> columns { columnsModifiers | multiline = True } [] <|
-      List.map postItemView model.postList
+    _ -> div [] <| List.map postItemView model.postList
 
 
 -- PRIVATE
@@ -33,7 +32,7 @@ dateFormat date =
 
 postItemView : Post -> Html Msg
 postItemView post =
-  column ( ardColumnModifiers Auto ( Just Width4 )) [] [
+  div [] [
     title H6 [] [ text post.title ],
     span [ textColor GreyLight ] [ text <| dateFormat post.created ]
   ]

@@ -15,10 +15,12 @@ import View.Utils exposing (ardColumnModifiers)
 
 productListView : Model -> Html Msg
 productListView model =
-  case List.length model.productList of
-    0 ->  div [] [ text "No products to display :(" ]
-    _ -> columns { columnsModifiers | multiline = True } [] <|
-      List.map (\p ->  productItemView model.docRoot p ) model.productList
+  column ( ardColumnModifiers Auto ( Just Auto )) [] [
+    case List.length model.productList of
+      0 -> span [] [ text "No products to display :(" ]
+      _ -> columns { columnsModifiers | multiline = True } [] <| List.map (
+        \p ->  productItemView model.docRoot p ) model.productList
+  ]
 
 
 -- PRIVATE
