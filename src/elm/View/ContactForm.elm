@@ -4,7 +4,7 @@ import Bulma.Form exposing (..)
 import Bulma.Elements exposing (..)
 import Bulma.Modifiers exposing (Color(Primary))
 import Html exposing (Html, div, span, text)
-import Html.Attributes exposing (placeholder)
+import Html.Attributes exposing (disabled, placeholder)
 
 import Message exposing (Msg(..))
 import Model exposing (Model)
@@ -24,6 +24,6 @@ contactFormView model =
       controlTextArea controlTextAreaModifiers [] [ placeholder "Message" ] []
     ],
     field [] [
-      controlButton { buttonModifiers | color = Primary } [] [] [ span [] [ text "Submit" ]]
+      controlButton { buttonModifiers | color = Primary, disabled = True } [] [] [ span [] [ text "Submit" ]]
     ]
   ]
