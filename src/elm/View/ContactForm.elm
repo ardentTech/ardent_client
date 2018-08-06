@@ -9,12 +9,14 @@ import Html.Events exposing (onInput, onClick)
 
 import Message exposing (Msg(..))
 import Model exposing (Model)
+import View.Alert exposing (alertView)
 
 
 contactFormView : Model -> Html Msg
 contactFormView model =
   div [] [
     title H4 [] [ text "Speak Your Mind" ],
+    alertView { toMsg = DeleteContactMessageAlert } model.contactMessageAlert,
     field [] [
       controlText controlInputModifiers [] [ onInput SetName, placeholder "Name" ] []
     ],

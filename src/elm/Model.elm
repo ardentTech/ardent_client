@@ -15,6 +15,7 @@ import Router exposing (Route, route)
 type alias Model = {
   rootAlert : Maybe Alert,
   contactMessage : ContactMessage,
+  contactMessageAlert : Maybe Alert,
   currentRoute : Maybe Route,
   currentTime : Maybe Time.Time,
   docRoot : String,
@@ -27,6 +28,7 @@ init : Flags -> Location -> Model
 init flags location = {
   rootAlert = Nothing,
   contactMessage = Model.ContactMessage.init,
+  contactMessageAlert = Nothing,
   currentRoute = parsePath route location,
   currentTime = Nothing,
   docRoot = flags.docRoot,

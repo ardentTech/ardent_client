@@ -24,6 +24,7 @@ update msg model =
       ContactFormSubmit -> model ! [ createContactMessage model ]
       CreateContactMessage response -> onCreateContactMessage response model
       CurrentTime time -> { model | currentTime = Just time } ! []
+      DeleteContactMessageAlert -> { model | contactMessageAlert = Nothing } ! []
       DeleteRootAlert -> { model | rootAlert = Nothing } ! []
       GetPostList response -> onGetPostList response model
       GetProductList response -> onGetProductList response model
@@ -45,9 +46,9 @@ update msg model =
 onCreateContactMessage : Result Http.Error ( ContactMessage ) -> Model -> ( Model, Cmd Msg )
 onCreateContactMessage response model =
   case response of
-    Ok r -> { model | rootAlert =
+    Ok r -> { model | contactMessageAlert =
       Just <| Model.Alert.success "Success!" "Your message has been received and will be processed in a timely fashion." } ! []
-    Err e -> { model | rootAlert = Just <| Model.Alert.fromHttpError e } ! []
+    Err e -> { model | contactMessageAlert = Just <| Model.Alert.fromHttpError e } ! []
 
 
 onGetPostList : Result Http.Error ( List Post ) -> Model -> ( Model, Cmd Msg )
