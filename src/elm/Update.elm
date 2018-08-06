@@ -20,17 +20,17 @@ update msg model =
     case msg of
       ContactFormSubmit -> model ! [ createContactMessage model ]
       CreateContactMessage response -> case response of
-        Ok r -> { model | alert =
+        Ok r -> { model | rootAlert =
           Just <| Model.Alert.success "Success!" "Your message has been received and will be processed in a timely fashion." } ! []
-        Err e -> { model | alert = Just <| Model.Alert.fromHttpError e } ! []
+        Err e -> { model | rootAlert = Just <| Model.Alert.fromHttpError e } ! []
       CurrentTime time -> { model | currentTime = Just time } ! []
-      DeleteAlert -> { model | alert = Nothing } ! []
+      DeleteRootAlert -> { model | rootAlert = Nothing } ! []
       GetPostList response -> case response of
         Ok r -> { model | postList = r } ! []
-        Err e -> { model | alert = Just <| Model.Alert.fromHttpError e } ! []
+        Err e -> { model | rootAlert = Just <| Model.Alert.fromHttpError e } ! []
       GetProductList response -> case response of
         Ok r -> { model | productList = r } ! []
-        Err e -> { model | alert = Just <| Model.Alert.fromHttpError e } ! []
+        Err e -> { model | rootAlert = Just <| Model.Alert.fromHttpError e } ! []
       NewUrl url -> ( model, newUrl url )
       NoOp -> noOp
       SetBody body -> { model |

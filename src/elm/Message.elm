@@ -13,7 +13,7 @@ type Msg =
   ContactFormSubmit |
   CreateContactMessage ( Result Http.Error ( ContactMessage )) |
   CurrentTime Time.Time |
-  DeleteAlert |
+  DeleteRootAlert |
   GetPostList ( Result Http.Error ( List Post )) |
   GetProductList ( Result Http.Error ( List Product )) |
   NewUrl String |

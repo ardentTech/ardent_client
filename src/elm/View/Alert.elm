@@ -1,17 +1,21 @@
-module View.Alert exposing (alertView)
+module View.Alert exposing (..)
 
 import Bulma.Components exposing (..)
 import Bulma.Modifiers
 import Html exposing (Html, div, text)
 
-import Message exposing (Msg(DeleteAlert))
 import Model exposing (Model)
-import Model.Alert
+import Model.Alert exposing (Alert)
 
 
-alertView : Model -> Html Msg
-alertView model =
-  case model.alert of
+type alias Config msg = {
+  toMsg : msg
+}
+
+
+alertView : Config msg -> Maybe Alert -> Html msg
+alertView { toMsg } alert_ =
+  case alert_ of
     Just alert ->
       let
         modifiers = { messageModifiers | color = case alert.category of
@@ -22,7 +26,7 @@ alertView model =
         }
       in
         message modifiers [] [
-          messageHeaderWithDelete [] DeleteAlert [ text alert.header ],
+          messageHeaderWithDelete [] toMsg [ text alert.header ],
           messageBody [] [ text alert.body ]
         ]
     _ -> div [] []

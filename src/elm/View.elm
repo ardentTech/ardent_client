@@ -26,7 +26,7 @@ view model =
     fontAwesomeCDN,
     ardStylesheet,
     section NotSpaced [] [ container [] [
-      alertView model,
+      alertView { toMsg = DeleteRootAlert } model.rootAlert,
       title H2 [] [ text "Ardent Technicreative" ],
       forRoute model.currentRoute <| model,
       View.Footer.view model
