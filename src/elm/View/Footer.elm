@@ -1,7 +1,6 @@
 module View.Footer exposing (view)
 
 import Bulma.Elements exposing (..)
-import Bulma.Layout exposing (..)
 import Bulma.Modifiers exposing (..)
 import Bulma.Modifiers.Typography exposing (Color(GreyLight), textCentered, textColor)
 import Date

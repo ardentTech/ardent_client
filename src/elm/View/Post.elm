@@ -1,8 +1,6 @@
 module View.Post exposing (postListView)
 
-import Bulma.Columns exposing (..)
 import Bulma.Elements exposing (..)
-import Bulma.Modifiers exposing (Width(..))
 import Bulma.Modifiers.Typography exposing (Color(GreyLight), textColor)
 import Date
 import Html exposing (Html, div, h5, p, span, text)
@@ -10,7 +8,6 @@ import Html exposing (Html, div, h5, p, span, text)
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Model.Post exposing (Post)
-import View.Utils exposing (ardColumnModifiers)
 
 
 postListView : Model -> Html Msg

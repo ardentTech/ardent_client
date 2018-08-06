@@ -33,6 +33,6 @@ getListPaginate url listDecoder resultToMsg =
   Http.send resultToMsg <| Http.get url (paginationDecoder listDecoder)
 
 
-post : String -> Http.Body -> Decoder a -> (Result Error a -> b) -> Cmd b
-post url body decoder resultToMsg =
-  Http.send resultToMsg <| Http.post url body decoder
+post : String -> Decoder a -> (Result Error a -> b) -> Cmd b
+post url decoder resultToMsg =
+  Http.send resultToMsg <| Http.post url Http.emptyBody decoder
