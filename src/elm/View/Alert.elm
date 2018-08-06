@@ -4,7 +4,6 @@ import Bulma.Components exposing (..)
 import Bulma.Modifiers
 import Html exposing (Html, div, text)
 
-import Model exposing (Model)
 import Model.Alert exposing (Alert)
 
 

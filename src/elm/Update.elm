@@ -21,7 +21,7 @@ update msg model =
     noOp = model ! []
   in
     case msg of
-      ContactFormSubmit -> model ! [ createContactMessage model ]
+      ContactFormSubmit -> onContactFormSubmit model
       CreateContactMessage response -> onCreateContactMessage response model
       CurrentTime time -> { model | currentTime = Just time } ! []
       DeleteContactMessageAlert -> { model | contactMessageAlert = Nothing } ! []
@@ -41,6 +41,15 @@ update msg model =
 
 
 -- PRIVATE
+
+
+onContactFormSubmit : Model -> ( Model, Cmd Msg )
+onContactFormSubmit model =
+  if Model.ContactMessage.isValid model.contactMessage then
+    model ! [ createContactMessage model ]
+  else
+    { model | contactMessageAlert =
+      Just <| Model.Alert.error "Invalid Submission!" "Please fix the errors below." } ! []
 
 
 onCreateContactMessage : Result Http.Error ( ContactMessage ) -> Model -> ( Model, Cmd Msg )

@@ -22,3 +22,14 @@ setEmail email contactMessage = { contactMessage | email = email }
 
 setName : String -> ContactMessage -> ContactMessage
 setName name contactMessage = { contactMessage | name = name }
+
+
+isValid : ContactMessage -> Bool
+isValid { body, email, name } = if
+  String.length body > 3 &&
+  String.length email > 3 &&
+  String.length name > 0 then
+    True
+  else
+    False
+
