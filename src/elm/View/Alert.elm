@@ -16,8 +16,8 @@ alertView model =
       let
         modifiers = { messageModifiers | color = case alert.category of
           Model.Alert.Error -> Bulma.Modifiers.Danger
-          Model.Alert.Info -> Bulma.Modifiers.Primary
-          Model.Alert.Success -> Bulma.Modifiers.Success
+          Model.Alert.Info -> Bulma.Modifiers.Info
+          Model.Alert.Success -> Bulma.Modifiers.Primary
           Model.Alert.Warning -> Bulma.Modifiers.Warning
         }
       in
