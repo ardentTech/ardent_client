@@ -11,6 +11,7 @@ import Html.Attributes exposing (href, rel)
 import Message exposing (Msg(..))
 import Model exposing (Model)
 import Router exposing (Route(..))
+import View.Alert exposing (alertView)
 import View.ContactForm exposing (contactFormView)
 import View.Footer
 import View.Post exposing (postListView)
@@ -25,6 +26,7 @@ view model =
     fontAwesomeCDN,
     ardStylesheet,
     section NotSpaced [] [ container [] [
+      alertView model,
       title H2 [] [ text "Ardent Technicreative" ],
       forRoute model.currentRoute <| model,
       View.Footer.view model

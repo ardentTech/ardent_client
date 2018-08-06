@@ -3,11 +3,11 @@ module Update exposing (update)
 import Navigation exposing (newUrl)
 import UrlParser exposing (parsePath)
 
-import Alert
 import Command
 import Command.ContactMessage exposing (createContactMessage)
 import Message exposing (Msg(..))
 import Model exposing (Model) 
+import Model.Alert
 import Model.ContactMessage
 import Router exposing (route)
 
@@ -18,16 +18,19 @@ update msg model =
     noOp = model ! []
   in
     case msg of
-      AlertMsg message -> { model | alert = Alert.update message model.alert } ! []
       ContactFormSubmit -> model ! [ createContactMessage model ]
-      CreateContactMessage response -> noOp
+      CreateContactMessage response -> case response of
+        Ok r -> { model | alert =
+          Just <| Model.Alert.success "Success!" "Your message has been received and will be processed in a timely fashion." } ! []
+        Err e -> { model | alert = Just <| Model.Alert.fromHttpError e } ! []
       CurrentTime time -> { model | currentTime = Just time } ! []
+      DeleteAlert -> { model | alert = Nothing } ! []
       GetPostList response -> case response of
         Ok r -> { model | postList = r } ! []
-        Err e -> { model | alert = Alert.fromError e } ! []
+        Err e -> { model | alert = Just <| Model.Alert.fromHttpError e } ! []
       GetProductList response -> case response of
         Ok r -> { model | productList = r } ! []
-        Err e -> { model | alert = Alert.fromError e } ! []
+        Err e -> { model | alert = Just <| Model.Alert.fromHttpError e } ! []
       NewUrl url -> ( model, newUrl url )
       NoOp -> noOp
       SetBody body -> { model |
