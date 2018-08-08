@@ -3,6 +3,7 @@ module Update exposing (update)
 import Http
 import Navigation exposing (newUrl)
 import UrlParser exposing (parsePath)
+import Validate exposing (validate)
 
 import Command
 import Command.ContactMessage exposing (createContactMessage)
@@ -45,18 +46,22 @@ update msg model =
 
 onContactFormSubmit : Model -> ( Model, Cmd Msg )
 onContactFormSubmit model =
-  if Model.ContactMessage.isValid model.contactMessage then
-    model ! [ createContactMessage model ]
-  else
-    { model | contactMessageAlert =
-      Just <| Model.Alert.error "Invalid Submission!" "Please fix the errors below." } ! []
+  let
+    errors = validate Model.ContactMessage.validator model.contactMessage
+  in
+    case List.length errors of
+      0 -> model ! [ createContactMessage model ]
+      _ -> { model | contactMessageAlert =
+        Just <| Model.Alert.error "Invalid Submission!" "Please remedy the errors below." } ! []
 
 
 onCreateContactMessage : Result Http.Error ( ContactMessage ) -> Model -> ( Model, Cmd Msg )
 onCreateContactMessage response model =
   case response of
-    Ok r -> { model | contactMessageAlert =
-      Just <| Model.Alert.success "Success!" "Your message has been received and will be processed in a timely fashion." } ! []
+    Ok r -> { model |
+      contactMessage = Model.ContactMessage.init,
+      contactMessageAlert = Just <| Model.Alert.success "Success!" "Your message has been received and will be processed in a timely fashion."
+    } ! []
     Err e -> { model | contactMessageAlert = Just <| Model.Alert.fromHttpError e } ! []
 
 

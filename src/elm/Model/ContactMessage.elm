@@ -1,5 +1,7 @@
 module Model.ContactMessage exposing (..)
 
+import Validate exposing (Validator, ifBlank, ifInvalidEmail, validate)
+
 
 type alias ContactMessage = {
   body : String,
@@ -24,12 +26,14 @@ setName : String -> ContactMessage -> ContactMessage
 setName name contactMessage = { contactMessage | name = name }
 
 
-isValid : ContactMessage -> Bool
-isValid { body, email, name } = if
-  String.length body > 3 &&
-  String.length email > 3 &&
-  String.length name > 0 then
-    True
-  else
-    False
+type Field = Body | Email | Name
 
+
+validator : Validator ( Field, String ) ContactMessage
+validator =
+  Validate.all [
+    ifBlank .body ( Body, "Please enter a message." ),
+    ifBlank .email ( Email, "Please enter an email." ),
+    ifBlank .name ( Name, "Please enter a name." ),
+    ifInvalidEmail .email (\a -> ( Email, a ++ " is not a valid email." ))
+  ]
