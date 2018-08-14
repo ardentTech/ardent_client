@@ -5,12 +5,13 @@ import Bulma.Columns exposing (..)
 import Bulma.Elements exposing (..)
 import Bulma.Layout exposing (..)
 import Bulma.Modifiers exposing (Width(..))
-import Html exposing (Html, div, h3, main_, text)
+import Html exposing (Html, a, div, h3, main_, text)
 import Html.Attributes exposing (href, rel)
+import Html.Events exposing (onClick)
 
 import Message exposing (Msg(..))
 import Model exposing (Model)
-import Router exposing (Route(..))
+import Router exposing (Route(..), toPath)
 import View.Alert exposing (alertView)
 import View.ContactForm exposing (contactFormView)
 import View.Footer
@@ -33,7 +34,11 @@ view model =
       ardStylesheet,
       section NotSpaced [] [ container [] [
         alertView { toMsg = DeleteRootAlert } model.rootAlert,
-        title H2 [] [ text "Ardent Technicreative" ],
+        title H2 [] [
+          case model.currentRoute of
+            Just Index -> text "Ardent Technicreative"
+            _ -> a [ onClick <| NewUrl <| toPath <| Index ] [ text "Ardent Technicreative" ]
+        ],
         routeView <| model,
         View.Footer.view model
       ]]

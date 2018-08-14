@@ -6,6 +6,7 @@
 .post-meta { margin-bottom: 2rem; }
 
 h2.title:not(:last-child) { margin-bottom: 2rem; }
+h2.title a { color: #363636; }
 
 h4.title:not(:last-child),
 h6.title:not(:last-child) { margin-bottom: 0.5rem; }
