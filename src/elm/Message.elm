@@ -15,6 +15,7 @@ type Msg =
   CurrentTime Time.Time |
   DeleteContactMessageAlert |
   DeleteRootAlert |
+  GetPost ( Result Http.Error ( Post )) |
   GetPostList ( Result Http.Error ( List Post )) |
   GetProductList ( Result Http.Error ( List Product )) |
   NewUrl String |

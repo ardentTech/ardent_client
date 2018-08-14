@@ -14,24 +14,30 @@ import Router exposing (Route(..))
 import View.Alert exposing (alertView)
 import View.ContactForm exposing (contactFormView)
 import View.Footer
-import View.Post exposing (postListView)
+import View.Post exposing (postDetail, postListView)
 import View.Product exposing (productListView)
 import View.Utils exposing (ardColumnModifiers)
 
 
 view : Model -> Html Msg
 view model =
-  main_ [] [
-    stylesheet,
-    fontAwesomeCDN,
-    ardStylesheet,
-    section NotSpaced [] [ container [] [
-      alertView { toMsg = DeleteRootAlert } model.rootAlert,
-      title H2 [] [ text "Ardent Technicreative" ],
-      forRoute model.currentRoute <| model,
-      View.Footer.view model
-    ]]
-  ]
+  let
+    routeView = case model.currentRoute of
+      Just Index -> indexView
+      Just ( PostDetail id ) -> postDetail
+      _ -> notFoundView
+  in
+    main_ [] [
+      stylesheet,
+      fontAwesomeCDN,
+      ardStylesheet,
+      section NotSpaced [] [ container [] [
+        alertView { toMsg = DeleteRootAlert } model.rootAlert,
+        title H2 [] [ text "Ardent Technicreative" ],
+        routeView <| model,
+        View.Footer.view model
+      ]]
+    ]
 
 
 -- PRIVATE
@@ -49,11 +55,12 @@ fontAwesomeCDN =
     href "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" ] []
 
 
-forRoute : Maybe Route -> (Model -> Html Msg)
-forRoute route =
-  case route of
-    Just Index -> indexView
-    _ -> notFoundView
+--forRoute : Maybe Route -> (Model -> Html Msg)
+--forRoute route =
+--  case route of
+--    Just Index -> indexView
+--    Just ( PostDetail id ) -> postDetail id
+--    _ -> notFoundView
 
 
 indexView : Model -> Html Msg

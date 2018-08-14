@@ -27,6 +27,7 @@ update msg model =
       CurrentTime time -> { model | currentTime = Just time } ! []
       DeleteContactMessageAlert -> { model | contactMessageAlert = Nothing } ! []
       DeleteRootAlert -> { model | rootAlert = Nothing } ! []
+      GetPost response -> onGetPost response model
       GetPostList response -> onGetPostList response model
       GetProductList response -> onGetProductList response model
       NewUrl url -> ( model, newUrl url )
@@ -37,8 +38,13 @@ update msg model =
         contactMessage = Model.ContactMessage.setEmail email model.contactMessage } ! []
       SetName name -> { model |
         contactMessage = Model.ContactMessage.setName name model.contactMessage } ! []
-      UrlChange location -> (
-        { model | currentRoute = parsePath route location }, Command.forMsg msg )
+      UrlChange location ->
+        let
+          newModel = { model | currentRoute = parsePath route location }
+        in
+          case newModel.currentRoute of
+            Just route -> newModel ! ( Command.forRoute route newModel )
+            _ -> newModel ! []
 
 
 -- PRIVATE
@@ -63,6 +69,13 @@ onCreateContactMessage response model =
       contactMessageAlert = Just <| Model.Alert.success "Success!" "Your message has been received and will be processed in a timely fashion."
     } ! []
     Err e -> { model | contactMessageAlert = Just <| Model.Alert.fromHttpError e } ! []
+
+
+onGetPost : Result Http.Error ( Post ) -> Model -> ( Model, Cmd Msg )
+onGetPost response model =
+  case response of
+    Ok r -> { model | post = Just r } ! []
+    Err e -> { model | rootAlert = Just <| Model.Alert.fromHttpError e } ! []
 
 
 onGetPostList : Result Http.Error ( List Post ) -> Model -> ( Model, Cmd Msg )

@@ -19,6 +19,7 @@ type alias Model = {
   currentRoute : Maybe Route,
   currentTime : Maybe Time.Time,
   docRoot : String,
+  post : Maybe Post,
   postList : List Post,
   productList : List Product
 }
@@ -32,5 +33,6 @@ init flags location = {
   currentRoute = parsePath route location,
   currentTime = Nothing,
   docRoot = flags.docRoot,
+  post = Nothing,
   postList = [],
   productList = []}
