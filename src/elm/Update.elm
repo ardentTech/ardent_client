@@ -1,7 +1,7 @@
 module Update exposing (update)
 
 import Http
-import Navigation exposing (newUrl)
+import Navigation exposing (newUrl, Location)
 import UrlParser exposing (parsePath)
 import Validate exposing (validate)
 
@@ -38,13 +38,7 @@ update msg model =
         contactMessage = Model.ContactMessage.setEmail email model.contactMessage } ! []
       SetName name -> { model |
         contactMessage = Model.ContactMessage.setName name model.contactMessage } ! []
-      UrlChange location ->
-        let
-          newModel = { model | currentRoute = parsePath route location }
-        in
-          case newModel.currentRoute of
-            Just route -> newModel ! ( Command.forRoute route newModel )
-            _ -> newModel ! []
+      UrlChange location -> onUrlChange location model
 
 
 -- PRIVATE
@@ -58,7 +52,10 @@ onContactFormSubmit model =
     case List.length errors of
       0 -> model ! [ createContactMessage model ]
       _ -> { model | contactMessageAlert =
-        Just <| Model.Alert.error "Invalid Submission!" "Please remedy the errors below." } ! []
+        let
+          errorMsg = String.join " " <| List.map (\e -> Tuple.second e) errors
+        in
+          Just <| Model.Alert.error "Invalid Submission!" errorMsg } ! []
 
 
 onCreateContactMessage : Result Http.Error ( ContactMessage ) -> Model -> ( Model, Cmd Msg )
@@ -90,3 +87,13 @@ onGetProductList response model =
   case response of
     Ok r -> { model | productList = r } ! []
     Err e -> { model | rootAlert = Just <| Model.Alert.fromHttpError e } ! []
+
+
+onUrlChange : Location -> Model -> ( Model, Cmd Msg )
+onUrlChange location model =
+  let
+    newModel = { model | currentRoute = parsePath route location }
+  in
+    case newModel.currentRoute of
+      Just route -> newModel ! ( Command.forRoute route newModel )
+      _ -> newModel ! []
