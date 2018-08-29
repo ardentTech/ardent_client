@@ -34,9 +34,15 @@ productItemView docRoot product =
         image ( OneByOne Unbounded ) [] [
           img [ src <| docRoot ++ "media/" ++ i.image ] []]
       _ -> text ""
-    status = case product.etsyUrl of
-      Just url -> a [ href url ] [ text "For Sale" ]
-      _ -> span [ textColor GreyLight ] [ text "Coming Soon" ]
+    statusElem s = span [ textColor GreyLight ] [ text s ]
+    status = case product.status of
+      "for_sale" ->
+        case product.etsyUrl of
+          Just url -> a [ href url ] [ text "For Sale" ]
+          _ -> statusElem "Coming Soon"
+      "coming_soon" -> statusElem "Coming Soon"
+      "sold" -> statusElem "Sold"
+      _ -> statusElem "Unknown State"
 
   in
     column ( ardColumnModifiers Auto ( Just Width4 )) [] [

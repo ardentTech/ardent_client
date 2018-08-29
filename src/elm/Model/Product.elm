@@ -5,7 +5,8 @@ type alias Product = {
   etsyUrl : Maybe String,
   images : List ProductImage,
   name : String,
-  serialNumber : String
+  serialNumber : String,
+  status : String
 }
 
 

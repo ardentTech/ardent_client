@@ -13,6 +13,7 @@ productListDecoder =
     |> requiredAt ["images"] productImageListDecoder
     |> required "name" string
     |> required "serialNumber" string
+    |> required "status" string
   )
 
 

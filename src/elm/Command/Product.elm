@@ -12,7 +12,7 @@ import Rest exposing (getList)
 getProductList : Model -> Cmd Msg
 getProductList { docRoot } =
   let
-    query = "{products{etsyUrl,images{image},name,serialNumber}}"
+    query = "{products{etsyUrl,images{image},name,serialNumber,status}}"
     url = ( docRoot ++ ( pathForEndpoint Graph ) ++ "?query=" ++ ( encodeUri query ))
   in
     getList url productListDecoder GetProductList
