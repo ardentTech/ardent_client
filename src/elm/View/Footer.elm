@@ -18,13 +18,16 @@ view model =
       Just t -> (toString <| Date.year <| Date.fromTime t) ++ " "
       _ -> ""
     copyright = text <| "© " ++ year ++ "Ardent Technicreative"
-    instagram = a [ href "https://www.instagram.com/ardent.tech/" ] [ text "Instagram" ]
+    email = a [ href "mailto:jonathan@ardent.tech" ] [ text "Email" ]
     github = a [ href "https://github.com/ardentTech" ] [ text "Github" ]
+    instagram = a [ href "https://www.instagram.com/ardent.tech/" ] [ text "Instagram" ]
   in
     Html.footer [] [
       hr [] [],
       content Standard [ textCentered ] [
         p [ textColor GreyLight ] [ Html.small [] [
+          email,
+          text " | ",
           instagram,
           text " | ",
           github,

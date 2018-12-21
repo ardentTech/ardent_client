@@ -71,11 +71,11 @@ fontAwesomeCDN =
 indexView : Model -> Html Msg
 indexView model =
   div [] [
-    columns { columnsModifiers | multiline = True } [] [ productListView model ],
-    columns columnsModifiers [] [
-      column ( ardColumnModifiers Auto ( Just Width6 )) [] [ postListView model ],
-      column ( ardColumnModifiers Auto ( Just Width6 )) [] [ contactFormView model ]
-    ]
+    columns { columnsModifiers | multiline = True } [] [ productListView model ]
+--    columns columnsModifiers [] [
+--      column ( ardColumnModifiers Auto ( Just Width6 )) [] [ postListView model ]
+--      column ( ardColumnModifiers Auto ( Just Width6 )) [] [ contactFormView model ]
+--    ]
   ]
 
 
